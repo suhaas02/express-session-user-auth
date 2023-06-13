@@ -41,6 +41,22 @@ app.post('/login', async function(req,res,next){
     
 })
 
+//signup
+app.post('/signup', (req,res) => {
+    const {username, password} = req.body;
+    req.session.sessionChecker = true;
+    req.session.username = username;
+    res.send('Signup successful');
+})
+
+app.post('/forgot-password', (req,res) => {
+    const {username} = req.body;
+    const tempPassword = 11111111;
+    req.session.tempPassword = tempPassword;
+    req.session.username = username;
+    res.status('forgot password')
+})
+
 app.get('/protected', sessionChecker, (req, res) => {
     // Only authenticated users can access this route
     res.send('Protected content');
